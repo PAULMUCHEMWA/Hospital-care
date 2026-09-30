@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#061a2b"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="apple-touch-icon" href="icon-192.png"><title>CareDesk – Hospital Records &amp; Voice Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#061a2b;--card:rgba(14,40,62,.72);--ink:#e8f4f8;--mute:#8fb0c0;--line:rgba(120,190,220,.22);--teal:#19c2b0;--blue:#2b7bff;--navy:#0a2c45;--warn:#f0a13a;--bad:#ff6b6b;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font:15px/1.45 Sora,system-ui,sans-serif;padding-bottom:96px;background:radial-gradient(700px 420px at 90% -5%,#1b6bff44,transparent),radial-gradient(600px 420px at -10% 30%,#19c2b033,transparent),#061a2b}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(120,190,220,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(120,190,220,.06) 1px,transparent 1px);background-size:34px 34px;-webkit-mask-image:linear-gradient(#000,transparent 80%);mask-image:linear-gradient(#000,transparent 80%)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(6,26,43,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+header b{font-size:18px;letter-spacing:.5px;background:linear-gradient(90deg,#fff,#7fe3d8);-webkit-background-clip:text;background-clip:text;color:transparent}header small{display:block;color:var(--mute);font-size:12px}
+nav{position:relative;display:flex;gap:8px;overflow-x:auto;padding:12px}
+nav button{flex:none;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);padding:9px 16px;border-radius:99px;font:600 13px Sora,sans-serif;cursor:pointer}
+nav button.on{background:linear-gradient(90deg,var(--teal),var(--blue));border-color:transparent;box-shadow:0 0 18px rgba(25,194,176,.45)}
+main{position:relative;max-width:920px;margin:auto;padding:4px 12px 12px}
+.card{background:var(--card);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+h1{margin:0 0 6px;font-size:24px;line-height:1.15}h2{margin:0 0 8px;font-size:18px}h3{margin:14px 0 6px;font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:1.5px}small,.m{color:var(--mute)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.w{grid-column:1/-1}
+input,select,textarea{width:100%;font:inherit;padding:11px;border:1px solid var(--line);border-radius:10px;background:rgba(3,14,24,.6);color:var(--ink)}
+textarea{min-height:84px;resize:vertical}label{font-size:12px;color:var(--mute);display:block;margin:6px 0 2px}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--teal);box-shadow:0 0 0 3px rgba(25,194,176,.25)}option{background:#0a2c45}
+button.b,button.g{font:600 14px Sora,sans-serif;padding:11px 16px;border-radius:10px;border:0;cursor:pointer;color:#04202b;background:linear-gradient(90deg,#3ee0cc,#5aa2ff)}
+button.g{background:none;border:1px solid var(--line);color:var(--ink)}
+.pt{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line);cursor:pointer}.pt:first-child{border-top:0}
+.av{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-weight:700;color:#fff}
+.tag{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid var(--line)}
+.Waiting{color:var(--warn);border-color:var(--warn)}.With{color:var(--teal);border-color:var(--teal)}.Disc{color:var(--mute)}
+.k{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.k div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}.k b{display:block;font-size:26px;font-family:Sora}.k span{font-size:20px}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:8px 4px;border-top:1px solid var(--line);text-align:left}td:last-child,th:last-child{text-align:right}
+.bar{height:10px;border-radius:9px;background:var(--line);overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--blue))}
+.mic{display:flex;align-items:center;gap:8px;background:linear-gradient(90deg,#19c2b0,#2b7bff);color:#fff;border:0;border-radius:12px;padding:14px 16px;font:700 14px Sora,sans-serif;cursor:pointer;width:100%;justify-content:center;box-shadow:0 0 24px rgba(43,123,255,.4)}
+.mic.on,.fab.on{animation:pl 1s infinite;background:var(--bad)}.live{min-height:22px;color:#7fe3d8;font-style:italic;margin:6px 0}
+.wv{display:flex;gap:4px;justify-content:center;align-items:center;height:34px;margin-top:8px}.wv i{width:5px;height:6px;border-radius:4px;background:var(--teal)}
+.mic.on~.wv i{animation:wv .8s ease-in-out infinite}.wv i:nth-child(2n){animation-delay:.15s!important}.wv i:nth-child(3n){animation-delay:.3s!important}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:62px;height:62px;border-radius:50%;border:0;font-size:26px;color:#fff;cursor:pointer;background:linear-gradient(135deg,#19c2b0,#2b7bff);box-shadow:0 0 0 6px rgba(25,194,176,.18),0 8px 24px rgba(43,123,255,.55);z-index:6}
+.hero{position:relative;overflow:hidden;display:grid;grid-template-columns:1.2fr .8fr;gap:8px;align-items:end;border:1px solid var(--line);border-radius:20px;padding:18px 0 0 18px;margin-bottom:14px;background:linear-gradient(135deg,rgba(25,194,176,.28),rgba(43,123,255,.3))}
+.scene{position:relative;display:flex;justify-content:center;align-items:flex-end;min-height:150px}.scene svg{width:100%;max-width:190px;height:auto}.scene svg+svg{margin-left:-46px}
+.scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0 0 20px 0}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 16px}.chips span{font-size:12px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid var(--line)}
+.ecg{width:100%;max-width:230px;height:46px}.ecg path{fill:none;stroke:#7fe3d8;stroke-width:3;stroke-linejoin:round;stroke-dasharray:300;stroke-dashoffset:300;animation:ec 2.6s linear infinite;filter:drop-shadow(0 0 6px #19c2b0)}
+.lg{max-width:460px;margin:0 auto;padding:14px}.lg .hero{grid-template-columns:1fr;padding:18px 18px 0}.err{color:var(--bad);min-height:20px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));background:#0a2c45;border:1px solid var(--teal);color:#fff;padding:10px 16px;border-radius:12px;display:none;max-width:88%;z-index:9}
+@keyframes pl{50%{opacity:.7;transform:scale(1.05)}}@keyframes ec{to{stroke-dashoffset:-300}}@keyframes wv{50%{height:30px}}
+@media(max-width:520px){.hero{grid-template-columns:1fr}.hero .scene{margin-top:-8px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body><div id="app"></div><div id="toast" role="status"></div>
+<script>
+const ROLES={reception:{n:"Reception",pin:"1111",tabs:["pat","reg"]},doctor:{n:"Doctor",pin:"2222",tabs:["pat","log"]},finance:{n:"Pharmacy & Finance",pin:"3333",tabs:["pha","fin","log"]},admin:{n:"Administrator",pin:"0000",tabs:["pat","reg","log","pha","fin"]}};
+const TN={pat:"Patients",reg:"Register",log:"Records",pha:"Pharmacy",fin:"Finance"};
+let D=null;try{D=JSON.parse(localStorage.getItem("cd"))}catch(e){}D=D||{p:[],log:[],st:[],mv:[],fin:[],budget:0,open:0,seq:0};
+let role=null,tab="pat",cur=null,q="",rec=null;
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const save=()=>{try{localStorage.setItem("cd",JSON.stringify(D))}catch(e){}},fmt=t=>new Date(t).toLocaleString("en-GB",{dateStyle:"short",timeStyle:"short"}),$$=n=>"$"+(+n||0).toFixed(2);
+const isDoc=()=>role==="doctor"||role==="admin",isRec=()=>role==="reception"||role==="admin",fp=id=>D.p.find(x=>x.id===id);
+function log(m){D.log.unshift({t:Date.now(),r:ROLES[role].n,m});D.log.length=Math.min(D.log.length,500)}
+function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",4000)}
+/* ---------- voice (only runs when a mic button is tapped) ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function voice(btn,cont,live,done){if(rec){try{rec.stop()}catch(e){}return}
+if(!SR)return toast("Voice needs Chrome or Edge with microphone access.");
+let fin="";rec=new SR();rec.lang="en-GB";rec.interimResults=true;rec.continuous=!!cont;btn.classList.add("on");
+rec.onresult=e=>{let i="";for(let k=e.resultIndex;k<e.results.length;k++){const t=e.results[k][0].transcript;if(e.results[k].isFinal)fin+=t+" ";else i+=t}live&&live((fin+i).trim())};
+rec.onerror=e=>toast(e.error==="not-allowed"?"Microphone blocked. Allow it in the browser.":"Voice error: "+e.error);
+rec.onend=()=>{btn.classList.remove("on");rec=null;const t=fin.trim();t&&done(t)};rec.start()}
+const lev=(a,b)=>{const d=Array.from({length:a.length+1},(_,i)=>[i,...Array(b.length).fill(0)]);for(let j=1;j<=b.length;j++)d[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length]};
+function command(t){const s=t.toLowerCase();$("gm").blur();const go=x=>{if(!ROLES[role].tabs.includes(x))return toast("Your role cannot open "+TN[x]);tab=x;cur=null;render()};
+if(/finance|budget|balance/.test(s))return go("fin");if(/stock|pharmacy|medicine/.test(s))return go("pha");
+if(/new patient|register|add patient/.test(s))return go("reg");if(/record|activity|log/.test(s))return go("log");
+const words=s.replace(/\b(open|find|show|search|patients|patient's|patient|file|record|of|the|for|please)\b/g," ").split(/\s+/).filter(Boolean);
+if(!ROLES[role].tabs.includes("pat"))return toast("Heard: "+t);
+tab="pat";if(!words.length){cur=null;q="";render();return toast("Showing all patients")}
+const hit=D.p.filter(p=>{const nw=(p.name+" "+p.no).toLowerCase().split(/\s+/);return words.every(w=>nw.some(n=>n.startsWith(w)||(w.length>3&&lev(n,w)<=1)))});
+if(hit.length===1){cur=hit[0].id;log("Opened file "+hit[0].no+" by voice");save();render();toast("Opened "+hit[0].name)}
+else if(hit.length>1){cur=null;q=words.join(" ");render();toast(hit.length+" patients match “"+words.join(" ")+"”")}
+else{cur=null;q="";render();toast("No patient found for “"+words.join(" ")+"”")}}
+function addVoice(p,t){const cap=x=>x.trim().replace(/^./,c=>c.toUpperCase()),pr=t.split(/\b(diagnosis|prescription|prescribe|treatment|notes?)\b[:,]?\s*/i),out=[];
+if(pr[0].trim())out.push(["nt",pr[0]]);for(let i=1;i<pr.length;i+=2){const k=pr[i].toLowerCase()[0];if(pr[i+1]&&pr[i+1].trim())out.push([k==="d"?"dx":k==="n"?"nt":"rx",pr[i+1]])}
+if(!out.length)return;const ts=fmt(Date.now());out.forEach(([f,x])=>{p[f]=(p[f]?p[f]+"\n":"")+"["+ts+"] "+cap(x)});
+if(p.status==="Waiting")p.status="With doctor";log("Voice dictation added to "+p.no);save();render();toast("Added to "+p.name+"’s file")}
+function dictate(){const p=fp(cur);voice($("dm"),true,t=>{$("live").textContent=t||"Listening…"},t=>addVoice(p,t));if(rec)$("live").textContent="Listening… tap again to stop and save"}
+/* ---------- views ---------- */
+const doc=(sk,hr,sc)=>`<svg viewBox="0 0 200 230" aria-hidden="true"><defs><linearGradient id="g${hr.slice(1)}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#cfe6f0"/></linearGradient></defs><path d="M22 230v-44c0-30 34-50 78-50s78 20 78 50v44z" fill="url(#g${hr.slice(1)})"/><path d="M76 140l24 38 24-38z" fill="${sc}"/><rect x="89" y="112" width="22" height="28" rx="9" fill="${sk}"/><circle cx="100" cy="86" r="33" fill="${sk}"/><path d="M66 84c-2-26 16-42 36-42s34 14 32 40c-9-11-22-15-34-15s-25 5-34 17z" fill="${hr}"/><circle cx="88" cy="90" r="3" fill="#1b2a38"/><circle cx="112" cy="90" r="3" fill="#1b2a38"/><path d="M90 102q10 8 20 0" stroke="#8a4b34" fill="none" stroke-width="3" stroke-linecap="round"/><path d="M72 142c-14 28 4 50 28 50s42-22 28-50" fill="none" stroke="#2b7bff" stroke-width="5" stroke-linecap="round"/><circle cx="100" cy="194" r="8" fill="#f6b912"/><rect x="128" y="168" width="28" height="18" rx="4" fill="${sc}" opacity=".85"/><path d="M134 177h16M142 171v12" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>`;
+const D1=doc("#f1c19b","#2a2118","#19c2b0"),D2=doc("#9a6440","#0e0e12","#2b7bff"),PH='<img src="images/doctors.jpg" alt="" onerror="this.remove()">',ECG='<svg class="ecg" viewBox="0 0 230 60" aria-hidden="true"><path d="M0 32H50l8-22 10 44 9-22h34l8-26 11 50 9-24h52"/></svg>',hue=t=>[...String(t)].reduce((a,c)=>a+c.charCodeAt(0),0)%360;
+
+function upd(f,v){const p=fp(cur);p[f]=v;log("Updated "+p.no+" ("+f+")");save()}
+function plist(){const L=D.p.filter(p=>(p.name+p.no+p.complaint).toLowerCase().includes(q.toLowerCase()));
+return L.length?L.map(p=>`<div class="pt" onclick="cur='${p.id}';render()"><span class="av" style="background:hsl(${hue(p.name)} 55% 40%)">${esc((p.name[0]||"?").toUpperCase())}</span><div style="flex:1"><b>${esc(p.name)}</b> <small>${p.no}</small><br><small>${esc(p.complaint||"No complaint noted")}</small></div><span class="tag ${p.status.split(" ")[0]}">${p.status}</span></div>`).join(""):'<p class="m">No patients found.</p>'}
+function vPat(){if(cur&&fp(cur)){const p=fp(cur),er=isRec(),ed=isDoc(),dis=x=>x?"":"disabled",ro=x=>x?"":"readonly";
+return `<button class="g" onclick="cur=null;render()">← All patients</button><div class="card" style="margin-top:10px"><h2>${esc(p.name)} <small>${p.no}</small></h2>
+<div class="row"><div><label>Name</label><input ${dis(er)} value="${esc(p.name)}" onchange="upd('name',this.value)"></div><div><label>Age</label><input ${dis(er)} value="${esc(p.age)}" onchange="upd('age',this.value)"></div>
+<div><label>Sex</label><select ${dis(er)} onchange="upd('sex',this.value)">${["Female","Male","Other"].map(x=>`<option${x===p.sex?" selected":""}>${x}</option>`).join("")}</select></div><div><label>Phone</label><input ${dis(er)} value="${esc(p.phone)}" onchange="upd('phone',this.value)"></div>
+<div class="w"><label>Complaint at reception</label><input ${dis(er)} value="${esc(p.complaint)}" onchange="upd('complaint',this.value)"></div>
+<div class="w"><label>Status</label><select onchange="upd('status',this.value);render()">${["Waiting","With doctor","Discharged"].map(x=>`<option${x===p.status?" selected":""}>${x}</option>`).join("")}</select></div></div></div>
+<div class="card"><h2>Clinical file</h2>${ed?`<button class="mic" id="dm" onclick="dictate()">🎙 Dictate into this file</button><div class="wv"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="live" id="live"></div><small>Say e.g. “diagnosis malaria, treatment coartem for three days, notes fever since Monday”. It files each part in the right box.</small>`:'<small>Only the doctor can edit these.</small>'}
+<label>Diagnosis</label><textarea ${ro(ed)} onchange="upd('dx',this.value)">${esc(p.dx)}</textarea><label>Treatment / prescription</label><textarea ${ro(ed)} onchange="upd('rx',this.value)">${esc(p.rx)}</textarea><label>Clinical notes</label><textarea ${ro(ed)} onchange="upd('nt',this.value)">${esc(p.nt)}</textarea></div>`}
+const n=s=>D.p.filter(p=>p.status===s).length;
+const hr=new Date().getHours(),gr=hr<12?"morning":hr<18?"afternoon":"evening";
+return `<div class="hero"><div><h1>Good ${gr},<br>${ROLES[role].n}</h1><p class="m">${n("Waiting")} waiting · ${n("With doctor")} with the doctor</p>${ECG}<div class="chips"><span>🎙 Voice AI ready</span><span>🩺 ${D.p.length} patient files</span></div></div><div class="scene">${D1}${D2}${PH}</div></div><div class="k"><div><span>⏳</span><b>${n("Waiting")}</b><small>Waiting</small></div><div><span>🩺</span><b>${n("With doctor")}</b><small>With doctor</small></div><div><span>✅</span><b>${n("Discharged")}</b><small>Discharged</small></div></div><div class="card"><input placeholder="Search name, number or complaint…" value="${esc(q)}" oninput="q=this.value;$('pl').innerHTML=plist()"><div id="pl" style="margin-top:8px">${plist()}</div></div>`}
+function reg(e){e.preventDefault();const g=i=>$(i).value.trim();D.seq++;const p={id:"i"+Date.now(),no:"P-"+String(D.seq).padStart(4,"0"),name:g("rn"),age:g("ra"),sex:$("rs").value,phone:g("rp"),complaint:g("rc"),status:"Waiting",dx:"",rx:"",nt:""};
+D.p.unshift(p);log("Registered "+p.no+" "+p.name);save();e.target.reset();toast(p.no+" registered and sent to the doctor’s queue");render()}
+const vReg=()=>`<div class="card"><h2>Register patient</h2><form onsubmit="reg(event)"><div class="row"><div class="w"><label>Full name</label><input id="rn" required></div><div><label>Age</label><input id="ra" inputmode="numeric" required></div><div><label>Sex</label><select id="rs"><option>Female</option><option>Male</option><option>Other</option></select></div><div class="w"><label>Phone</label><input id="rp" type="tel"></div><div class="w"><label>Reason for visit</label><input id="rc"></div><div class="w"><button class="b" style="width:100%">Register patient</button></div></div></form></div>`;
+const vLog=()=>`<div class="card"><h2>Hospital activity</h2>${D.log.length?`<table>${D.log.slice(0,80).map(l=>`<tr><td><small>${fmt(l.t)}</small></td><td>${esc(l.m)}<br><small>${esc(l.r)}</small></td></tr>`).join("")}</table>`:'<p class="m">Nothing recorded yet.</p>'}</div>`;
+function med(e){e.preventDefault();D.st.push({id:"m"+Date.now(),name:$("mn").value.trim(),unit:$("mu").value.trim()||"units",qty:0,cost:0,re:+$("mr").value||0});log("Added medicine "+$("mn").value.trim());save();render()}
+function move(e){e.preventDefault();const m=D.st.find(x=>x.id===$("ms").value),n=+$("mq").value,c=+$("mc").value||0,t=$("mt").value;if(!m||n<=0)return;
+if(t==="out"&&n>m.qty)return toast("Only "+m.qty+" "+m.unit+" in stock");
+if(t==="in"){m.cost=(m.qty*m.cost+n*c)/(m.qty+n);m.qty+=n;D.fin.unshift({t:Date.now(),type:"expense",cat:"Medicine",amt:n*c,note:"Stock in: "+m.name})}else m.qty-=n;
+D.mv.unshift({t:Date.now(),m:m.name,type:t,n});log("Stock "+t+": "+n+" "+m.unit+" "+m.name);save();e.target.reset();render();toast("Stock updated")}
+const vPha=()=>`<div class="card"><h2>Medicine stock</h2>${D.st.length?`<table><tr><th>Medicine</th><th>In stock</th><th>Value</th></tr>${D.st.map(m=>`<tr><td>${esc(m.name)}${m.qty<=m.re?' <span class="tag Waiting">Low</span>':""}</td><td>${m.qty} ${esc(m.unit)}</td><td>${$$(m.qty*m.cost)}</td></tr>`).join("")}</table>`:'<p class="m">Add your first medicine below.</p>'}</div>
+<div class="card"><h2>Stock in / out</h2><form onsubmit="move(event)"><div class="row"><div class="w"><label>Medicine</label><select id="ms" required>${D.st.map(m=>`<option value="${m.id}">${esc(m.name)}</option>`).join("")}</select></div><div><label>Movement</label><select id="mt"><option value="in">Stock in (purchase)</option><option value="out">Stock out (dispensed)</option></select></div><div><label>Quantity</label><input id="mq" type="number" min="1" required></div><div class="w"><label>Unit cost (for stock in)</label><input id="mc" type="number" step="0.01" min="0"></div><div class="w"><button class="b" style="width:100%">Save movement</button></div></div></form></div>
+<div class="card"><h2>Add new medicine</h2><form onsubmit="med(event)"><div class="row"><div class="w"><label>Name</label><input id="mn" required></div><div><label>Unit (tabs, bottles…)</label><input id="mu"></div><div><label>Reorder level</label><input id="mr" type="number" min="0"></div><div class="w"><button class="b" style="width:100%">Add medicine</button></div></div></form></div>`;
+function ent(e){e.preventDefault();D.fin.unshift({t:Date.now(),type:$("et").value,cat:$("ec").value.trim()||"General",amt:+$("ea").value,note:$("en").value.trim()});log("Finance entry: "+$("et").value+" "+$$($("ea").value));save();render()}
+function vFin(){const s=t=>D.fin.filter(x=>x.type===t).reduce((a,x)=>a+x.amt,0),cash=+D.open+s("income")-s("expense"),sv=D.st.reduce((a,m)=>a+m.qty*m.cost,0),as=cash+sv,li=s("payable"),now=new Date(),
+ms=D.fin.filter(x=>x.cat==="Medicine"&&x.type==="expense"&&new Date(x.t).getMonth()===now.getMonth()&&new Date(x.t).getFullYear()===now.getFullYear()).reduce((a,x)=>a+x.amt,0),pc=D.budget?Math.min(100,ms/D.budget*100):0;
+return `<div class="card"><h2>Medicine budget (this month)</h2><label>Monthly budget ($)</label><input type="number" value="${D.budget||""}" onchange="D.budget=+this.value;save();render()"><div class="bar"><i style="width:${pc}%;${pc>90?"background:var(--bad)":""}"></i></div><small>Spent ${$$(ms)} of ${$$(D.budget)}${D.budget&&ms>D.budget?" (over budget)":""}</small></div>
+<div class="card"><h2>Balance sheet</h2><label>Opening cash ($)</label><input type="number" value="${D.open||""}" onchange="D.open=+this.value;save();render()"><table style="margin-top:8px"><tr><th colspan="2">Assets</th></tr><tr><td>Cash</td><td>${$$(cash)}</td></tr><tr><td>Medicine stock</td><td>${$$(sv)}</td></tr><tr><td><b>Total assets</b></td><td><b>${$$(as)}</b></td></tr><tr><th colspan="2">Liabilities</th></tr><tr><td>Payables owed</td><td>${$$(li)}</td></tr><tr><td><b>Equity (assets − liabilities)</b></td><td><b>${$$(as-li)}</b></td></tr></table>
+<h3>Income statement</h3><table><tr><td>Income</td><td>${$$(s("income"))}</td></tr><tr><td>Expenses</td><td>${$$(s("expense"))}</td></tr><tr><td><b>Net</b></td><td><b>${$$(s("income")-s("expense"))}</b></td></tr></table></div>
+<div class="card"><h2>Add entry</h2><form onsubmit="ent(event)"><div class="row"><div><label>Type</label><select id="et"><option value="income">Income</option><option value="expense">Expense</option><option value="payable">Payable (owed)</option></select></div><div><label>Amount ($)</label><input id="ea" type="number" step="0.01" min="0" required></div><div><label>Category</label><input id="ec" placeholder="Fees, Salaries…"></div><div><label>Note</label><input id="en"></div><div class="w"><button class="b" style="width:100%">Save entry</button></div></div></form>
+<h3>Latest entries</h3><table>${D.fin.slice(0,12).map(x=>`<tr><td><small>${fmt(x.t)}</small></td><td>${esc(x.cat)} <small>${x.type}</small></td><td>${$$(x.amt)}</td></tr>`).join("")||'<tr><td class="m">No entries yet</td></tr>'}</table></div>`}
+function login(e){e.preventDefault();const r=$("lr").value;if($("lp").value===ROLES[r].pin){role=r;tab=ROLES[r].tabs[0];cur=null;render()}else $("le").textContent="Wrong PIN"}
+function render(){if(!role){$("app").innerHTML=`<div class="lg"><div class="hero"><div><h1>🩺 CareDesk</h1><p class="m">Smart hospital records with a tap-to-talk voice assistant.</p>${ECG}<div class="chips"><span>🎙 Voice notes</span><span>💊 Pharmacy</span><span>📊 Finance</span></div></div><div class="scene">${D1}${D2}${PH}</div></div><div class="card"><h2>Staff sign in</h2><form onsubmit="login(event)"><label>Role</label><select id="lr">${Object.keys(ROLES).map(k=>`<option value="${k}">${ROLES[k].n}</option>`).join("")}</select><label>PIN</label><input id="lp" type="password" inputmode="numeric" required><div class="err" id="le"></div><button class="b" style="width:100%">Sign in</button></form></div></div>`;return}
+const V={pat:vPat,reg:vReg,log:vLog,pha:vPha,fin:vFin},T=ROLES[role].tabs;
+$("app").innerHTML=`<header><div><b>🩺 CareDesk</b><small>${ROLES[role].n}</small></div><button class="g" style="color:#fff;border-color:#fff8" onclick="role=null;render()">Sign out</button></header><nav>${T.map(t=>`<button class="${t===tab?"on":""}" onclick="tab='${t}';cur=null;render()">${TN[t]}</button>`).join("")}</nav><main>${V[tab]()}</main><button class="fab" id="gm" aria-label="Voice command" onclick="voice(this,false,t=>toast('Listening: '+t),command)">🎙</button>`}
+render();if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script></body></html>
